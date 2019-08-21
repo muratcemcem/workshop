@@ -128,7 +128,7 @@ eksctl delete cluster --name=eksworkshop-eksctl
 ```
 
 # references
-https://eksctl.io
-https://helm.sh
-https://docs.flagger.app
-https://istio.io
+https://eksctl.io  
+https://helm.sh  
+https://docs.flagger.app  
+https://istio.io  
