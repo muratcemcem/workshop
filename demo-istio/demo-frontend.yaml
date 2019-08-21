@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo-frontend
+  namespace: test-istio
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-frontend
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: demo-frontend
+        image: cemcem/demo-frontend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-frontend
+  namespace: test-istio
+spec:
+  selector:
+    app: demo-frontend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

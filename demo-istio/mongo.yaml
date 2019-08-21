@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongo
+  namespace: test-istio
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: agw-mongo
+        image: mongo:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+  namespace: test-istio
+spec:
+  selector:
+    app: mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: NodePort

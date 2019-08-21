@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dummy-api
+  namespace: test-istio
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-backend
+        version: v2
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: dummy-api
+        image: cemcem/dummy-api
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888

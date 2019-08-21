@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo-backend-api
+  namespace: test-istio
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-backend
+        version: v1
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: demo-backend-api
+        image: cemcem/demo-backend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-backend
+  namespace: test-istio
+  labels:
+    app: demo-backend
+    service: demo-backend
+spec:
+  selector:
+    app: demo-backend
+  ports:
+    - port: 8888
+      name: http
+  
